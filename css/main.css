@@ -1,0 +1,547 @@
+/* ========================================
+   DEFCON Map - Main Styles
+   ======================================== */
+
+/* CSS Custom Properties (Color Variables) */
+:root {
+    /* Background Colors */
+    --color-background: #000000;
+    --color-landmass: #0a0a0a;
+    --color-ocean: #001122;
+    
+    /* Glow Colors */
+    --color-border-glow: #00ffff;
+    --color-text-glow: #00ff00;
+    
+    /* DEFCON Level Colors */
+    --color-defcon-1: #ff0000;
+    --color-defcon-2: #ff6600;
+    --color-defcon-3: #ffcc00;
+    --color-defcon-4: #00ff00;
+    --color-defcon-5: #0066ff;
+    
+    /* Text Colors */
+    --color-text-primary: #00ff00;
+    --color-text-secondary: #00cc00;
+    --color-text-muted: #006600;
+    
+    /* Typography */
+    --font-main: "VT323", "Share Tech Mono", "Courier New", monospace;
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Border */
+    --border-width: 2px;
+    --border-glow-spread: 3px;
+}
+
+/* ========================================
+   Reset & Base Styles
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.4;
+    -webkit-font-smoothing: none;
+    -moz-osx-font-smoothing: none;
+}
+
+/* ========================================
+   Main App Container
+   ======================================== */
+
+#app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* ========================================
+   Map Container (Full Screen)
+   ======================================== */
+
+#map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-ocean);
+}
+
+/* Map Country Styles */
+.country {
+    fill: var(--color-landmass);
+    stroke: var(--color-border-glow);
+    stroke-width: 0.5;
+    transition: fill 0.3s ease;
+}
+
+.country:hover {
+    fill: #1a1a1a;
+}
+
+.country.highlighted {
+    fill: #1a1a1a;
+    stroke-width: 1.5;
+}
+
+/* ========================================
+   DEFCON Indicator (Top Right)
+   ======================================== */
+
+#defcon-indicator {
+    position: absolute;
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    border: var(--border-width) solid var(--color-border-glow);
+    padding: var(--spacing-md);
+    min-width: 280px;
+}
+
+.defcon-header {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary);
+    letter-spacing: 2px;
+}
+
+.defcon-level {
+    text-align: center;
+    padding: var(--spacing-md);
+    margin: var(--spacing-sm) 0;
+    border: var(--border-width) solid;
+    transition: all 0.5s ease;
+}
+
+.defcon-number {
+    font-size: 5rem;
+    line-height: 1;
+    font-weight: bold;
+    display: block;
+}
+
+.defcon-status {
+    font-size: 1.5rem;
+    margin-top: var(--spacing-xs);
+    letter-spacing: 3px;
+}
+
+/* DEFCON Level Color Schemes */
+.defcon-1 {
+    border-color: var(--color-defcon-1);
+    color: var(--color-defcon-1);
+    background: rgba(255, 0, 0, 0.1);
+}
+
+.defcon-2 {
+    border-color: var(--color-defcon-2);
+    color: var(--color-defcon-2);
+    background: rgba(255, 102, 0, 0.1);
+}
+
+.defcon-3 {
+    border-color: var(--color-defcon-3);
+    color: var(--color-defcon-3);
+    background: rgba(255, 204, 0, 0.1);
+}
+
+.defcon-4 {
+    border-color: var(--color-defcon-4);
+    color: var(--color-defcon-4);
+    background: rgba(0, 255, 0, 0.1);
+}
+
+.defcon-5 {
+    border-color: var(--color-defcon-5);
+    color: var(--color-defcon-5);
+    background: rgba(0, 102, 255, 0.1);
+}
+
+/* DEFCON Scale */
+.defcon-scale {
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
+}
+
+.scale-item {
+    padding: var(--spacing-xs);
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.scale-item[data-level="1"] { border-color: var(--color-defcon-1); }
+.scale-item[data-level="2"] { border-color: var(--color-defcon-2); }
+.scale-item[data-level="3"] { border-color: var(--color-defcon-3); }
+.scale-item[data-level="4"] { border-color: var(--color-defcon-4); }
+.scale-item[data-level="5"] { border-color: var(--color-defcon-5); }
+
+.scale-item.active {
+    background: rgba(0, 255, 255, 0.1);
+    padding-left: var(--spacing-sm);
+}
+
+/* ========================================
+   Stats Panel (Left Side)
+   ======================================== */
+
+#stats-panel {
+    position: absolute;
+    top: var(--spacing-lg);
+    left: var(--spacing-lg);
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    border: var(--border-width) solid var(--color-border-glow);
+    padding: var(--spacing-md);
+    min-width: 280px;
+}
+
+.stats-header {
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-md);
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--color-border-glow);
+    padding-bottom: var(--spacing-sm);
+}
+
+.blink {
+    animation: blink 1s infinite;
+    color: var(--color-text-primary);
+}
+
+@keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+
+.stats-content {
+    margin-bottom: var(--spacing-md);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacing-xs) 0;
+    font-size: 1rem;
+}
+
+.stat-label {
+    color: var(--color-text-secondary);
+}
+
+.stat-value {
+    color: var(--color-text-primary);
+    font-weight: bold;
+}
+
+.stat-divider {
+    height: 1px;
+    background: var(--color-border-glow);
+    margin: var(--spacing-sm) 0;
+    opacity: 0.3;
+}
+
+/* Radar Animation */
+.radar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--spacing-md);
+}
+
+.radar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle,
+        rgba(0, 255, 0, 0.2) 0%,
+        transparent 70%
+    );
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--color-border-glow);
+}
+
+.radar-beam {
+    width: 100%;
+    height: 100%;
+    background: conic-gradient(
+        from 0deg,
+        rgba(0, 255, 0, 0.5) 0deg,
+        transparent 90deg
+    );
+    border-radius: 50%;
+    animation: radar-sweep 3s linear infinite;
+    position: absolute;
+}
+
+.radar-rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 50%;
+}
+
+.radar-rings::before,
+.radar-rings::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    border-radius: 50%;
+}
+
+.radar-rings::before {
+    width: 66%;
+    height: 66%;
+}
+
+.radar-rings::after {
+    width: 33%;
+    height: 33%;
+}
+
+@keyframes radar-sweep {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ========================================
+   News Ticker (Bottom)
+   ======================================== */
+
+#news-ticker {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    border: var(--border-width) solid var(--color-border-glow);
+    padding: var(--spacing-sm) var(--spacing-md);
+    width: 80%;
+    max-width: 1200px;
+    display: flex;
+    align-items: center;
+}
+
+.ticker-label {
+    font-size: 1rem;
+    color: var(--color-text-primary);
+    margin-right: var(--spacing-md);
+    white-space: nowrap;
+    letter-spacing: 2px;
+}
+
+.ticker-content {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.ticker-text {
+    white-space: nowrap;
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    animation: scroll-ticker 20s linear infinite;
+    display: inline-block;
+}
+
+@keyframes scroll-ticker {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.ticker-text:hover {
+    animation-play-state: paused;
+}
+
+/* ========================================
+   Audio Controls (Bottom Right)
+   ======================================== */
+
+#audio-controls {
+    position: absolute;
+    bottom: var(--spacing-lg);
+    right: var(--spacing-lg);
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.85);
+    border: var(--border-width) solid var(--color-border-glow);
+    padding: var(--spacing-md);
+    min-width: 200px;
+}
+
+.audio-header {
+    font-size: 1rem;
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+    letter-spacing: 2px;
+    color: var(--color-text-primary);
+}
+
+.audio-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.audio-btn {
+    background: transparent;
+    border: 1px solid var(--color-border-glow);
+    color: var(--color-text-primary);
+    padding: var(--spacing-sm);
+    cursor: pointer;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    transition: all 0.3s ease;
+}
+
+.audio-btn:hover {
+    background: rgba(0, 255, 255, 0.1);
+}
+
+.audio-btn.active {
+    background: rgba(0, 255, 0, 0.2);
+    border-color: var(--color-text-primary);
+}
+
+.audio-icon {
+    font-size: 1.2rem;
+}
+
+.audio-label {
+    flex: 1;
+    text-align: left;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) 0;
+    font-size: 0.9rem;
+}
+
+.volume-control label {
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+}
+
+#volume-slider {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    background: var(--color-border-glow);
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--color-text-primary);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#volume-slider::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    background: var(--color-text-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+}
+
+#volume-value {
+    color: var(--color-text-primary);
+    min-width: 40px;
+    text-align: right;
+}
+
+/* ========================================
+   Glow Effects
+   ======================================== */
+
+.glow-border {
+    box-shadow: 
+        0 0 5px var(--color-border-glow),
+        0 0 10px var(--color-border-glow),
+        inset 0 0 5px rgba(0, 255, 255, 0.1);
+}
+
+.glow-text {
+    text-shadow: 
+        0 0 5px var(--color-text-glow),
+        0 0 10px var(--color-text-glow),
+        0 0 15px var(--color-text-glow);
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+
+.hidden {
+    display: none !important;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.pulse {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}

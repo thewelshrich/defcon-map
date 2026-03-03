@@ -113,6 +113,69 @@ defcon-map/
 
 ---
 
+## Map Module Usage
+
+The map is built with D3.js v7 and provides a DEFCON-style visualization.
+
+### Quick Start
+
+```bash
+# Start development server
+npm run dev
+
+# Open http://localhost:8080
+```
+
+### API Reference
+
+```javascript
+// Initialize the map
+DEFCONMap.init();
+
+// Add event markers
+DEFCONMap.addMarker(lat, lng, type, data);
+
+// Types: 'default', 'alert', 'warning', 'safe'
+DEFCONMap.addMarker(51.5074, -0.1278, 'warning', { name: 'London' });
+
+// Clear all markers
+DEFCONMap.clearAllMarkers();
+
+// Zoom to location
+DEFCONMap.zoomTo(40.7128, -74.0060, 4); // NYC, zoom level 4
+```
+
+### Demo Mode
+
+Add `?demo` to URL to see sample markers:
+```
+http://localhost:8080?demo
+```
+
+### Module Exports (ES6)
+
+```javascript
+import { 
+  initMap, 
+  addEventMarker, 
+  clearMarkers, 
+  on, 
+  setView 
+} from './js/map.js';
+
+// Initialize
+initMap('map-container-id');
+
+// Add marker
+const markerId = addEventMarker(55.7558, 37.6173, 'alert', { name: 'Moscow' });
+
+// Listen for events
+on('country:click', (e) => console.log('Country:', e.detail.feature));
+on('marker:click', (e) => console.log('Marker:', e.detail.marker));
+```
+
+---
+
 ## Next Steps
 
 1. [ ] Prototype with GDELT data (free, immediate)

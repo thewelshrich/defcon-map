@@ -1,0 +1,241 @@
+/**
+ * DEFCON Map - Audio Controls
+ * Floating audio control panel
+ */
+
+/* Container for audio controls */
+.audio-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+/* Main toggle button */
+.audio-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 255, 0, 0.5);
+  background: rgba(0, 20, 0, 0.9);
+  color: #00ff00;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 0 10px rgba(0, 255, 0, 0.3),
+    inset 0 0 20px rgba(0, 255, 0, 0.1);
+}
+
+.audio-btn:hover {
+  border-color: rgba(0, 255, 0, 0.8);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 0, 0.5),
+    inset 0 0 30px rgba(0, 255, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.audio-btn:active {
+  transform: scale(0.95);
+}
+
+.audio-btn.muted {
+  border-color: rgba(255, 0, 0, 0.5);
+  box-shadow: 
+    0 0 10px rgba(255, 0, 0, 0.3),
+    inset 0 0 20px rgba(255, 0, 0, 0.1);
+}
+
+.audio-btn.muted:hover {
+  border-color: rgba(255, 0, 0, 0.8);
+  box-shadow: 
+    0 0 20px rgba(255, 0, 0, 0.5),
+    inset 0 0 30px rgba(255, 0, 0, 0.2);
+}
+
+/* Expandable panel */
+.audio-panel {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  min-width: 180px;
+  background: rgba(0, 20, 0, 0.95);
+  border: 1px solid rgba(0, 255, 0, 0.4);
+  border-radius: 8px;
+  padding: 12px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.2s ease;
+  box-shadow: 
+    0 0 20px rgba(0, 255, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.audio-panel.hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+}
+
+.audio-panel-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Volume slider */
+.audio-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #00ff00;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 4px;
+  background: rgba(0, 255, 0, 0.2);
+  border-radius: 2px;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #00ff00;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+  transition: all 0.15s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(0, 255, 0, 0.8);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: #00ff00;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.6);
+}
+
+/* Small action button */
+.audio-btn-small {
+  padding: 6px 12px;
+  background: rgba(0, 255, 0, 0.1);
+  border: 1px solid rgba(0, 255, 0, 0.4);
+  border-radius: 4px;
+  color: #00ff00;
+  font-family: inherit;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.audio-btn-small:hover {
+  background: rgba(0, 255, 0, 0.2);
+  border-color: rgba(0, 255, 0, 0.6);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.audio-btn-small:active {
+  transform: scale(0.95);
+}
+
+/* CRT scanline effect (optional) */
+.audio-controls::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.1) 0px,
+    rgba(0, 0, 0, 0.1) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Pulse animation for active audio */
+@keyframes audioPulse {
+  0%, 100% {
+    box-shadow: 
+      0 0 10px rgba(0, 255, 0, 0.3),
+      inset 0 0 20px rgba(0, 255, 0, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 0, 0.5),
+      inset 0 0 30px rgba(0, 255, 0, 0.2);
+  }
+}
+
+.audio-btn:not(.muted) {
+  animation: audioPulse 2s ease-in-out infinite;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .audio-controls {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .audio-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+  
+  .audio-panel {
+    bottom: 54px;
+    min-width: 160px;
+    padding: 10px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .audio-btn {
+    border-width: 3px;
+  }
+  
+  .volume-slider::-webkit-slider-thumb {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .audio-btn {
+    animation: none;
+  }
+  
+  .audio-panel {
+    transition: opacity 0.1s ease;
+  }
+}

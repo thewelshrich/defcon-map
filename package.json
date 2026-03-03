@@ -1,0 +1,21 @@
+{
+  "name": "defcon-map",
+  "version": "0.1.0",
+  "description": "Real-time global conflict visualization with DEFCON threat levels",
+  "type": "module",
+  "main": "src/js/data.js",
+  "scripts": {
+    "test": "node --experimental-modules src/js/data.test.js",
+    "dev": "npx http-server src -p 8080 -c-1 --cors",
+    "start": "npm run dev"
+  },
+  "keywords": [
+    "defcon",
+    "conflict",
+    "gdelt",
+    "visualization",
+    "map"
+  ],
+  "author": "",
+  "license": "MIT"
+}

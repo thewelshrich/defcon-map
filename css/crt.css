@@ -1,0 +1,402 @@
+/* ========================================
+   DEFCON Map - CRT Effects
+   ======================================== */
+
+/* CRT Container */
+.crt {
+    position: relative;
+    overflow: hidden;
+}
+
+/* ========================================
+   Scanlines Overlay
+   ======================================== */
+
+.crt::before {
+    content: " ";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 3px;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+/* ========================================
+   Screen Flicker Animation
+   ======================================== */
+
+@keyframes flicker {
+    0% {
+        opacity: 0.27861;
+    }
+    5% {
+        opacity: 0.34769;
+    }
+    10% {
+        opacity: 0.23604;
+    }
+    15% {
+        opacity: 0.30143;
+    }
+    20% {
+        opacity: 0.27304;
+    }
+    25% {
+        opacity: 0.31165;
+    }
+    30% {
+        opacity: 0.29678;
+    }
+    35% {
+        opacity: 0.32894;
+    }
+    40% {
+        opacity: 0.27789;
+    }
+    45% {
+        opacity: 0.31477;
+    }
+    50% {
+        opacity: 0.28943;
+    }
+    55% {
+        opacity: 0.33216;
+    }
+    60% {
+        opacity: 0.26894;
+    }
+    65% {
+        opacity: 0.30387;
+    }
+    70% {
+        opacity: 0.31962;
+    }
+    75% {
+        opacity: 0.29328;
+    }
+    80% {
+        opacity: 0.32761;
+    }
+    85% {
+        opacity: 0.28239;
+    }
+    90% {
+        opacity: 0.31674;
+    }
+    95% {
+        opacity: 0.29741;
+    }
+    100% {
+        opacity: 0.32498;
+    }
+}
+
+.crt::after {
+    content: " ";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9998;
+    animation: flicker 0.15s infinite;
+}
+
+/* ========================================
+   Text Glow Effects
+   ======================================== */
+
+/* Primary text glow */
+.crt .defcon-header,
+.crt .stats-header,
+.crt .ticker-label,
+.crt .audio-header {
+    text-shadow:
+        0 0 2px var(--color-text-glow),
+        0 0 5px var(--color-text-glow),
+        0 0 10px var(--color-text-glow),
+        0 0 15px var(--color-text-glow);
+}
+
+/* DEFCON number glow */
+.crt .defcon-number {
+    text-shadow:
+        0 0 5px currentColor,
+        0 0 10px currentColor,
+        0 0 20px currentColor,
+        0 0 30px currentColor,
+        0 0 40px currentColor;
+}
+
+/* Status text glow */
+.crt .defcon-status {
+    text-shadow:
+        0 0 3px currentColor,
+        0 0 6px currentColor,
+        0 0 10px currentColor;
+}
+
+/* Stats values glow */
+.crt .stat-value {
+    text-shadow:
+        0 0 2px var(--color-text-glow),
+        0 0 5px var(--color-text-glow);
+}
+
+/* Ticker text glow */
+.crt .ticker-text {
+    text-shadow:
+        0 0 2px var(--color-text-glow),
+        0 0 5px var(--color-text-glow);
+}
+
+/* ========================================
+   Chromatic Aberration
+   ======================================== */
+
+/* Apply subtle chromatic aberration to the entire screen */
+.crt #app {
+    position: relative;
+}
+
+.crt #app::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.03) 0%,
+        transparent 50%,
+        rgba(0, 0, 255, 0.03) 100%
+    );
+    pointer-events: none;
+    z-index: 9997;
+}
+
+/* Enhanced chromatic aberration on DEFCON level changes */
+.crt .defcon-level.critical::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        linear-gradient(90deg, rgba(255, 0, 0, 0.1) 0%, transparent 20%, transparent 80%, rgba(0, 0, 255, 0.1) 100%);
+    animation: chromatic-pulse 1s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes chromatic-pulse {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* ========================================
+   Vignette Effect
+   ======================================== */
+
+.crt #app::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        transparent 60%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
+    pointer-events: none;
+    z-index: 9996;
+}
+
+/* ========================================
+   Additional CRT Effects
+   ======================================== */
+
+/* Screen curvature effect (subtle) */
+.crt #map-container {
+    border-radius: 5px;
+}
+
+/* Phosphor persistence (subtle blur on moving elements) */
+.crt .ticker-text {
+    filter: blur(0.2px);
+}
+
+/* Color bleeding on edges */
+.crt .glow-border {
+    box-shadow:
+        0 0 5px var(--color-border-glow),
+        0 0 10px var(--color-border-glow),
+        0 0 15px var(--color-border-glow),
+        inset 0 0 5px rgba(0, 255, 255, 0.1),
+        -1px 0 0 rgba(255, 0, 0, 0.2),
+        1px 0 0 rgba(0, 0, 255, 0.2);
+}
+
+/* ========================================
+   Screen Glitch Effect (Optional)
+   ======================================== */
+
+/* Apply to elements during high DEFCON levels */
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translate(-2px, 2px);
+    }
+    40% {
+        transform: translate(-2px, -2px);
+    }
+    60% {
+        transform: translate(2px, 2px);
+    }
+    80% {
+        transform: translate(2px, -2px);
+    }
+    100% {
+        transform: translate(0);
+    }
+}
+
+.crt .defcon-level.defcon-1 {
+    animation: glitch 0.3s ease-in-out infinite;
+}
+
+.crt .defcon-level.defcon-2 {
+    animation: glitch 0.5s ease-in-out infinite;
+}
+
+/* ========================================
+   Power On Effect
+   ======================================== */
+
+@keyframes power-on {
+    0% {
+        transform: scale(1, 0.0001);
+        filter: brightness(30);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1, 0.0001);
+        filter: brightness(30);
+        opacity: 1;
+    }
+    60% {
+        transform: scale(1.1, 0.0001);
+        filter: brightness(30);
+        opacity: 1;
+    }
+    70% {
+        transform: scale(1, 0.0001);
+        filter: brightness(30);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1, 1);
+        filter: brightness(1);
+        opacity: 1;
+    }
+}
+
+/* Uncomment to apply power-on animation on load */
+/*
+.crt #app {
+    animation: power-on 2s ease-out forwards;
+}
+*/
+
+/* ========================================
+   Horizontal Sync Issues (Optional)
+   ======================================== */
+
+@keyframes h-sync {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10% {
+        transform: translateX(-2px);
+    }
+    30% {
+        transform: translateX(2px);
+    }
+    50% {
+        transform: translateX(0);
+    }
+}
+
+/* Apply to ticker for authentic effect */
+.crt #news-ticker {
+    animation: h-sync 10s ease-in-out infinite;
+}
+
+/* ========================================
+   Reduced Motion Support
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .crt::before,
+    .crt::after {
+        animation: none;
+    }
+    
+    .crt .ticker-text {
+        animation: none;
+    }
+    
+    .crt .radar-beam {
+        animation: none;
+    }
+    
+    .crt .blink {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* ========================================
+   Mobile Adjustments
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Reduce scanline intensity on mobile */
+    .crt::before {
+        background-size: 100% 4px;
+        opacity: 0.7;
+    }
+    
+    /* Disable flicker on mobile for performance */
+    .crt::after {
+        animation: none;
+        opacity: 0;
+    }
+    
+    /* Reduce glow effects on mobile */
+    .crt .defcon-number {
+        text-shadow:
+            0 0 3px currentColor,
+            0 0 6px currentColor;
+    }
+}
