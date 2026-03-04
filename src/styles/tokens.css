@@ -1,0 +1,16 @@
+:root {
+  --color-background: #000000;
+  --color-panel: rgba(0, 12, 24, 0.88);
+  --color-panel-border: rgba(0, 255, 255, 0.35);
+  --color-landmass: #0a0a0a;
+  --color-map-field: #001122;
+  --color-border-glow: #00ffff;
+  --color-text-primary: #9dff9d;
+  --color-text-dim: #6bc58d;
+  --color-defcon-1: #ff0000;
+  --color-defcon-2: #ff6600;
+  --color-defcon-3: #ffcc00;
+  --color-defcon-4: #00ff66;
+  --color-defcon-5: #0066ff;
+  --font-display: "Share Tech Mono", "VT323", monospace;
+}

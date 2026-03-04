@@ -12,7 +12,7 @@ An artistic/educational visualization that displays global conflict data in the 
 
 ---
 
-## Research Summary
+## Product Summary
 
 ### Data Sources
 
@@ -25,16 +25,17 @@ An artistic/educational visualization that displays global conflict data in the 
 
 **Recommended:** ACLED for quality baseline + GDELT for real-time alerts
 
-### Tech Stack
+### Recommended Architecture
 
 | Layer | Technology |
 |-------|------------|
-| **Map** | D3.js + SVG (flat projection) |
-| **Effects** | CSS (CRT scanlines, glow, flicker) |
-| **Animations** | GSAP for trajectories, CSS for loops |
-| **Audio** | Howler.js + royalty-free synth (Pixabay) or Tone.js (procedural) |
-| **Backend** | Cloudflare Workers (API proxy, caching) |
-| **Hosting** | Cloudflare Pages (unlimited bandwidth free) |
+| **Frontend app** | React 19 + TypeScript + Vite |
+| **Map rendering** | deck.gl (WebGL) |
+| **Geospatial utilities** | D3 (scales, normalization, transforms) |
+| **Client state** | Zustand or React reducer-based state |
+| **Client data** | TanStack Query |
+| **Backend** | Cloudflare Workers + Workers KV + Cron |
+| **Hosting** | Cloudflare Pages + Workers |
 
 ### DEFCON Level Calculation
 
@@ -54,18 +55,16 @@ Based on ACLED's Conflict Index methodology:
 - **4 (Guarded)** — Regional tensions, potential flashpoints
 - **5 (Normal)** — Routine geopolitical friction
 
-### Features
+### Planned MVP
 
-- ✅ Flat 2D world map (Mercator projection)
-- ✅ CRT/scanline effects
-- ✅ Glowing vector borders
-- ✅ Real-time conflict markers
-- ✅ DEFCON level indicator (1-5)
-- ✅ Country conflict stats
-- ✅ Timeline playback (historical)
-- ✅ News ticker feed
-- ✅ Ambient synth audio
-- ✅ Mobile-responsive
+- Flat 2D world map
+- CRT/scanline effects
+- Glowing borders
+- Real-time conflict markers
+- DEFCON level indicator (1-5)
+- Country conflict stats
+- News ticker feed
+- Responsive layout
 
 ### Viral Potential
 
@@ -95,9 +94,20 @@ Based on ACLED's Conflict Index methodology:
 
 ---
 
-## Project Structure
+## Repository Status
 
-```
+The repository currently contains an early plain JavaScript prototype. It is useful as a proof of concept for the visual direction, but it is not the long-term architecture.
+
+The intended production direction is documented in:
+
+- [docs/technical-architecture.md](docs/technical-architecture.md)
+- [docs/features.md](docs/features.md)
+- [docs/data-sources.md](docs/data-sources.md)
+- [docs/ethics.md](docs/ethics.md)
+
+## Current Repository Structure
+
+``` 
 defcon-map/
 ├── README.md
 ├── docs/
@@ -105,54 +115,44 @@ defcon-map/
 │   ├── technical-architecture.md
 │   ├── features.md
 │   └── ethics.md
-├── research/
-│   └── (raw research notes)
-└── src/
-    ├── (implementation)
+├── css/
+├── js/
+├── index.html
+└── package.json
 ```
 
 ---
 
-## Map Module Usage
+## Current Prototype
 
-The map is built with D3.js v7 and provides a DEFCON-style visualization.
+The current codebase includes a D3-based browser prototype. It is best treated as a visual experiment, not the final implementation model.
 
 ### Quick Start
 
 ```bash
-# Start development server
 npm run dev
 
 # Open http://localhost:8080
 ```
 
-### API Reference
+### Prototype Capabilities
 
 ```javascript
-// Initialize the map
 DEFCONMap.init();
-
-// Add event markers
 DEFCONMap.addMarker(lat, lng, type, data);
-
-// Types: 'default', 'alert', 'warning', 'safe'
-DEFCONMap.addMarker(51.5074, -0.1278, 'warning', { name: 'London' });
-
-// Clear all markers
 DEFCONMap.clearAllMarkers();
-
-// Zoom to location
-DEFCONMap.zoomTo(40.7128, -74.0060, 4); // NYC, zoom level 4
+DEFCONMap.zoomTo(40.7128, -74.0060, 4);
 ```
 
 ### Demo Mode
 
-Add `?demo` to URL to see sample markers:
+Add `?demo` to the URL to render sample markers:
+
 ```
 http://localhost:8080?demo
 ```
 
-### Module Exports (ES6)
+### Prototype Modules
 
 ```javascript
 import { 
@@ -178,13 +178,12 @@ on('marker:click', (e) => console.log('Marker:', e.detail.marker));
 
 ## Next Steps
 
-1. [ ] Prototype with GDELT data (free, immediate)
-2. [ ] Build DEFCON level algorithm
-3. [ ] Create retro UI mockup
-4. [ ] Test with r/dataisbeautiful post
-5. [ ] Apply for ACLED API access
-6. [ ] Develop ethical guidelines
-7. [ ] Launch MVP
+1. Replace the prototype app shell with React + TypeScript + Vite.
+2. Rebuild the map surface with `deck.gl` using custom country geometry.
+3. Move conflict normalization and aggregation into Cloudflare Workers.
+4. Implement typed domain models for events, filters, and DEFCON scoring.
+5. Rebuild ticker, panels, and playback controls as React components.
+6. Reapply the CRT visual system on top of the new architecture.
 
 ---
 

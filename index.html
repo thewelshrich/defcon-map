@@ -1,117 +1,12 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>DEFCON Map</title>
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/crt.css">
-    <link rel="stylesheet" href="css/controls.css">
-    
-    <style>
-        /* Ensure map container fills viewport */
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: var(--color-background, #000000);
-        }
-        
-        #map {
-            width: 100%;
-            height: 100%;
-        }
-        
-        /* Info panel overlay */
-        #info-panel {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.85);
-            border: 2px solid #00ffff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-            padding: 15px 20px;
-            min-width: 200px;
-            font-family: "VT323", monospace;
-            color: #00ff00;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        
-        #info-panel.visible {
-            opacity: 1;
-        }
-        
-        #info-panel h3 {
-            color: #00ffff;
-            margin-bottom: 8px;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-        }
-        
-        #info-panel p {
-            margin: 4px 0;
-            font-size: 14px;
-        }
-        
-        #info-panel pre {
-            margin-top: 8px;
-            font-size: 12px;
-            color: #00cc00;
-        }
-        
-        /* Loading indicator */
-        .loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #00ffff;
-            font-family: "VT323", monospace;
-            font-size: 24px;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
-        }
-    </style>
-</head>
-<body>
-    <div id="map">
-        <div class="loading">INITIALIZING...</div>
-    </div>
-    <div id="info-panel"></div>
-    
-    <!-- D3.js v7 -->
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <!-- TopoJSON client for converting TopoJSON to GeoJSON -->
-    <script src="https://unpkg.com/topojson-client@3"></script>
-    
-    <!-- Main application (ES Module) -->
-    <script type="module">
-        // Hide loading indicator once map is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            const loading = document.querySelector('.loading');
-            if (loading) {
-                setTimeout(() => loading.remove(), 1000);
-            }
-        });
-        
-        // Import and initialize the app
-        import('./js/app.js').then(module => {
-            console.log('DEFCON Map module loaded');
-            
-            // The module auto-initializes, but you can also call init() manually:
-            // module.init();
-        }).catch(err => {
-            console.error('Failed to load DEFCON Map:', err);
-        });
-    </script>
-</body>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/app/main.tsx"></script>
+  </body>
 </html>

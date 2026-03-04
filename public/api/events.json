@@ -1,0 +1,54 @@
+[
+  {
+    "id": "evt-kyiv-1",
+    "occurredAt": "2026-03-04T07:20:00.000Z",
+    "countryCode": "UKR",
+    "countryName": "Ukraine",
+    "locationName": "Kyiv",
+    "latitude": 50.4501,
+    "longitude": 30.5234,
+    "category": "explosion",
+    "fatalities": 2,
+    "civilianImpact": true,
+    "confidence": "high"
+  },
+  {
+    "id": "evt-donetsk-1",
+    "occurredAt": "2026-03-04T06:10:00.000Z",
+    "countryCode": "UKR",
+    "countryName": "Ukraine",
+    "locationName": "Donetsk",
+    "latitude": 48.0159,
+    "longitude": 37.8029,
+    "category": "battle",
+    "fatalities": 11,
+    "civilianImpact": false,
+    "confidence": "medium"
+  },
+  {
+    "id": "evt-tehran-1",
+    "occurredAt": "2026-03-04T05:45:00.000Z",
+    "countryCode": "IRN",
+    "countryName": "Iran",
+    "locationName": "Tehran",
+    "latitude": 35.6892,
+    "longitude": 51.389,
+    "category": "protest",
+    "fatalities": 0,
+    "civilianImpact": true,
+    "confidence": "medium"
+  },
+  {
+    "id": "evt-khartoum-1",
+    "occurredAt": "2026-03-04T03:15:00.000Z",
+    "countryCode": "SDN",
+    "countryName": "Sudan",
+    "locationName": "Khartoum",
+    "latitude": 15.5007,
+    "longitude": 32.5599,
+    "category": "civilian",
+    "fatalities": 7,
+    "civilianImpact": true,
+    "confidence": "high"
+  }
+]

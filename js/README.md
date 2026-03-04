@@ -1,6 +1,14 @@
+# DEFCON Map - Legacy Prototype
+
+This `js/` directory is retained for reference only. It contains the original plain JavaScript prototype and is no longer the active architecture.
+
+The active application baseline is now the React + TypeScript + `deck.gl` app started through `npm run dev`.
+
+---
+
 # DEFCON Map - Data Module
 
-Data fetching and processing layer for the DEFCON map project.
+Data fetching and processing layer for the original prototype.
 
 ## Features
 
