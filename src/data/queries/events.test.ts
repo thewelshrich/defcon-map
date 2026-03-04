@@ -7,26 +7,36 @@ afterEach(() => {
 });
 
 describe("fetchConflictEvents", () => {
-  it("returns conflict events from the API endpoint", async () => {
+  it("returns the conflict event feed envelope from the API endpoint", async () => {
     vi.stubGlobal(
       "fetch",
       vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => [
-          {
-            id: "evt-1",
-            countryCode: "USA"
-          }
-        ]
+        json: async () => ({
+          generatedAt: "2026-03-04T12:00:00.000Z",
+          windowStart: "2026-02-26T12:00:00.000Z",
+          windowEnd: "2026-03-04T12:00:00.000Z",
+          source: "gdelt",
+          schemaVersion: 1,
+          events: [
+            {
+              id: "evt-1",
+              countryCode: "USA"
+            }
+          ]
+        })
       })
     );
 
-    await expect(fetchConflictEvents()).resolves.toMatchObject([
-      {
-        id: "evt-1",
-        countryCode: "USA"
-      }
-    ]);
+    await expect(fetchConflictEvents()).resolves.toMatchObject({
+      source: "gdelt",
+      events: [
+        {
+          id: "evt-1",
+          countryCode: "USA"
+        }
+      ]
+    });
   });
 });
 

@@ -238,6 +238,20 @@ My recommendation is **Zustand** because map state, playback state, and filter s
 
 ## Map Rendering Details
 
+## Ingestion Pipeline
+
+The frontend should consume app-owned curated snapshots, not raw upstream data.
+
+The current repository now includes an ingestion layer under `ingestion/src/` that:
+
+- loads versioned GDELT BigQuery SQL
+- normalizes raw rows into the product event model
+- deduplicates overlapping records
+- computes country summaries and the DEFCON snapshot
+- publishes immutable versioned snapshots plus latest cached payloads
+
+This keeps BigQuery and GDELT-specific semantics out of the React application and makes upstream source changes easier to absorb without rewriting the UI.
+
 ### Recommended Layers
 
 **Countries Layer**

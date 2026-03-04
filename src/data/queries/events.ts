@@ -1,6 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 
-import type { ConflictEvent } from "../../domain/events";
+import type { ConflictEventFeed } from "../../domain/events";
 
 export async function fetchConflictEvents() {
   const response = await fetch("/api/events.json");
@@ -9,7 +9,7 @@ export async function fetchConflictEvents() {
     throw new Error(`Failed to load conflict events: ${response.status}`);
   }
 
-  return (await response.json()) as ConflictEvent[];
+  return (await response.json()) as ConflictEventFeed;
 }
 
 export function getEventsQueryOptions() {

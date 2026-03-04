@@ -8,6 +8,16 @@ export type DefconSummary = {
   updatedAt: string;
 };
 
+export type DefconSummarySnapshot = DefconSummary & {
+  generatedAt: string;
+  windowStart: string;
+  windowEnd: string;
+  source: "gdelt";
+  schemaVersion: 1;
+  eventCount: number;
+  countryCount: number;
+};
+
 const accentClassByLevel: Record<DefconLevel, string> = {
   1: "defcon-critical",
   2: "defcon-severe",

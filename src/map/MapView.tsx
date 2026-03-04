@@ -13,6 +13,12 @@ type MapViewProps = {
   events: ConflictEvent[];
 };
 
+type ControlledDeckViewState = MapViewportState & {
+  minZoom: number;
+  maxZoom: number;
+  normalize: boolean;
+};
+
 export function MapView({ events }: MapViewProps) {
   const hoveredCountryCode = useAppStore((state) => state.hoveredCountryCode);
   const setHoveredCountryCode = useAppStore((state) => state.setHoveredCountryCode);
@@ -46,6 +52,12 @@ export function MapView({ events }: MapViewProps) {
   const eventsLayers = createEventsLayers(events, pulsePhase);
 
   const layers = [...countriesLayers, ...eventsLayers];
+  const controlledViewState: ControlledDeckViewState = {
+    ...viewport,
+    minZoom: 2,
+    maxZoom: 4,
+    normalize: false
+  };
 
   const handleViewStateChange = useCallback(
     ({ viewState }: { viewState: unknown }) => {
@@ -64,9 +76,9 @@ export function MapView({ events }: MapViewProps) {
   return (
     <div className="map-view">
       <DeckGL
-        controller={{ minZoom: 2, maxZoom: 4 }}
+        controller
         layers={layers}
-        viewState={{ ...viewport, normalize: false }}
+        viewState={controlledViewState}
         onViewStateChange={handleViewStateChange}
       />
       {hoveredCountryName ? <div className="map-hover-label">{hoveredCountryName}</div> : null}

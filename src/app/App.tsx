@@ -13,22 +13,26 @@ export type TickerItem = {
 
 function buildTickerItems(events: ConflictEvent[]): TickerItem[] {
   return events.slice(0, 8).map((event) => {
-    const fatalities = event.fatalities ?? 0;
+    const fatalitiesText =
+      event.fatalities == null ? "fatalities unknown" : `${event.fatalities} reported fatalities`;
+
     return {
       id: event.id,
       category: event.category,
-      text: `${event.category.toUpperCase()} \u2014 ${event.countryName} (${fatalities} reported fatalities)`
+      text: `${event.category.toUpperCase()} \u2014 ${event.countryName} (${fatalitiesText})`
     };
   });
 }
 
 export function App() {
   const { data: summary } = useQuery(getSummaryQueryOptions());
-  const { data: events } = useQuery(getEventsQueryOptions());
+  const { data: eventFeed } = useQuery(getEventsQueryOptions());
 
-  if (!summary || !events) {
+  if (!summary || !eventFeed) {
     return <div className="app-loading">Loading strategic display...</div>;
   }
+
+  const events = eventFeed.events;
 
   return <AppShell events={events} summary={summary} tickerItems={buildTickerItems(events)} />;
 }

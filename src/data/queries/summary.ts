@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import type { DefconSummary } from "../../domain/defcon";
+import type { DefconSummarySnapshot } from "../../domain/defcon";
 
 export async function fetchDefconSummary() {
   const response = await fetch("/api/summary.json");
@@ -8,7 +8,7 @@ export async function fetchDefconSummary() {
     throw new Error(`Failed to load DEFCON summary: ${response.status}`);
   }
 
-  return (await response.json()) as DefconSummary;
+  return (await response.json()) as DefconSummarySnapshot;
 }
 
 export function getSummaryQueryOptions() {

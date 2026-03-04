@@ -16,14 +16,22 @@ describe("fetchDefconSummary", () => {
           level: 3,
           score: 42,
           trend: "up",
-          updatedAt: "2026-03-04T09:30:00.000Z"
+          updatedAt: "2026-03-04T09:30:00.000Z",
+          generatedAt: "2026-03-04T09:30:00.000Z",
+          windowStart: "2026-02-26T09:30:00.000Z",
+          windowEnd: "2026-03-04T09:30:00.000Z",
+          source: "gdelt",
+          schemaVersion: 1,
+          eventCount: 12,
+          countryCount: 4
         })
       })
     );
 
     await expect(fetchDefconSummary()).resolves.toMatchObject({
       level: 3,
-      trend: "up"
+      trend: "up",
+      source: "gdelt"
     });
   });
 });

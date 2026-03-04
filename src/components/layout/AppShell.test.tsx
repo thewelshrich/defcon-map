@@ -26,12 +26,23 @@ const events: ConflictEvent[] = [
     countryCode: "USA",
     countryName: "United States",
     locationName: "Washington",
+    actor1Name: "United States",
+    actor1CountryCode: "USA",
+    actor2Name: "Iran",
+    actor2CountryCode: "IRN",
     latitude: 38.9072,
     longitude: -77.0369,
     category: "strategic",
     fatalities: 0,
     civilianImpact: false,
-    confidence: "high"
+    confidence: "high",
+    source: "gdelt",
+    sourceUrl: "https://example.com/evt-1",
+    sourceEventId: "evt-1",
+    severity: "medium",
+    mentionCount: 18,
+    scope: "geopolitical",
+    plotVisibility: "plot"
   }
 ];
 
