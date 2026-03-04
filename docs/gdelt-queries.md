@@ -10,9 +10,11 @@
 
 ## Optimized Query (Minimal Scan)
 
+**⚠️ IMPORTANT:** Use `events_partitioned` table, not `events`. The partitioned table enables `_PARTITIONDATE` filtering which reduces scan from 65GB to 398MB.
+
 ```sql
 -- Scan last 30 days of material conflicts
--- Estimated data scanned: ~1-2GB
+-- Data scanned: ~398MB (0.04% of 1TB free tier)
 SELECT 
   GLOBALEVENTID,
   SQLDATE,
@@ -25,15 +27,15 @@ SELECT
   Actor1Geo_Long as attacker_lng,
   ActionGeo_Lat as event_lat,
   ActionGeo_Long as event_lng
-FROM `gdelt-bq.gdeltv2.events`
+FROM `gdelt-bq.gdeltv2.events_partitioned`
 WHERE 
-  SQLDATE >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY))
+  _PARTITIONDATE >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
   AND QuadClass = 4
   AND Actor1CountryCode != Actor2CountryCode
   AND Actor1CountryCode IS NOT NULL
   AND Actor2CountryCode IS NOT NULL
   AND ActionGeo_Lat IS NOT NULL
-ORDER BY GoldsteinScale ASC
+ORDER BY GoldsteinScale ASC, SQLDATE DESC
 LIMIT 1000
 ```
 
@@ -43,6 +45,7 @@ LIMIT 1000
 
 ```sql
 -- Ukraine-Russia conflicts only
+-- Uses partitioned table for minimal scan
 SELECT 
   GLOBALEVENTID,
   SQLDATE,
@@ -55,9 +58,9 @@ SELECT
   Actor1Geo_Long as attacker_lng,
   ActionGeo_Lat as event_lat,
   ActionGeo_Long as event_lng
-FROM `gdelt-bq.gdeltv2.events`
+FROM `gdelt-bq.gdeltv2.events_partitioned`
 WHERE 
-  SQLDATE >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY))
+  _PARTITIONDATE >= DATE_SUB(CURRENT_DATE(), INTERVAL 90 DAY)
   AND QuadClass = 4
   AND (
     (Actor1CountryCode = 'RUS' AND Actor2CountryCode = 'UKR') OR
@@ -74,6 +77,7 @@ LIMIT 500
 
 ```sql
 -- Middle East conflicts (ISR, IRN, LBN, SYR, PSE, IRQ, YEM)
+-- Uses partitioned table for minimal scan
 SELECT 
   GLOBALEVENTID,
   SQLDATE,
@@ -86,9 +90,9 @@ SELECT
   Actor1Geo_Long as attacker_lng,
   ActionGeo_Lat as event_lat,
   ActionGeo_Long as event_lng
-FROM `gdelt-bq.gdeltv2.events`
+FROM `gdelt-bq.gdeltv2.events_partitioned`
 WHERE 
-  SQLDATE >= FORMAT_DATE('%Y%m%d', DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY))
+  _PARTITIONDATE >= DATE_SUB(CURRENT_DATE(), INTERVAL 30 DAY)
   AND QuadClass = 4
   AND Actor1CountryCode IN ('ISR', 'IRN', 'LBN', 'SYR', 'IRQ', 'YEM')
   AND Actor2CountryCode != Actor1CountryCode
@@ -153,14 +157,16 @@ LIMIT 500
 
 ## Cost Estimation
 
-| Query Type | Days Scanned | Est. GB |
-|------------|--------------|---------|
-| Full table scan | 365+ | 50GB |
-| 90 days | 90 | 12GB |
-| 30 days | 30 | 4GB |
-| 7 days | 7 | 1GB |
+| Query Type | Table | Days Scanned | Est. GB |
+|------------|-------|--------------|---------|
+| `events` (no partition) | events | 30 | **65GB** ❌ |
+| `events_partitioned` | events_partitioned | 30 | **398MB** ✅ |
+| `events_partitioned` | events_partitioned | 7 | ~100MB |
+| `events_partitioned` | events_partitioned | 90 | ~1.2GB |
 
-**Recommendation:** Query 30 days weekly = 4GB × 4 = 16GB/month
+**Recommendation:** Query `events_partitioned` weekly = 398MB × 4 = 1.6GB/month (0.16% of free tier)
+
+You could run this query 2,500 times per month and still be free.
 
 ---
 
