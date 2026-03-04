@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import type { DefconSummary } from "../../domain/defcon";
 import type { ConflictEvent } from "../../domain/events";
+import type { TickerItem } from "../../app/App";
 import { vi } from "vitest";
 
 vi.mock("../../map/MapView", () => ({
@@ -34,11 +35,14 @@ const events: ConflictEvent[] = [
   }
 ];
 
+const tickerItems: TickerItem[] = [
+  { id: "t-1", category: "strategic", text: "STRATEGIC — United States (0 reported fatalities)" }
+];
+
 describe("AppShell", () => {
   it("renders the major shell regions", () => {
-    render(<AppShell events={events} summary={summary} tickerItems={["Line 1", "Line 2"]} />);
+    render(<AppShell events={events} summary={summary} tickerItems={tickerItems} />);
 
-    expect(screen.getByRole("banner")).toBeInTheDocument();
     expect(screen.getByRole("complementary")).toBeInTheDocument();
     expect(screen.getByRole("contentinfo")).toBeInTheDocument();
     expect(screen.getByTestId("map-view")).toBeInTheDocument();

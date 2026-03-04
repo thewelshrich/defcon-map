@@ -31,22 +31,45 @@ function readCountryCode(candidate: unknown) {
   return null;
 }
 
-export function createCountriesLayer({
+export function createCountriesLayers({
   data,
   hoveredCountryCode,
   onHoverCountry,
   onSelectCountry
 }: CountriesLayerOptions) {
-  return new GeoJsonLayer({
+  const glowLayer = new GeoJsonLayer({
+    id: "countries-glow-layer",
+    data,
+    pickable: false,
+    stroked: true,
+    filled: false,
+    getLineColor: (feature): RgbaColor =>
+      readCountryCode(feature) === hoveredCountryCode
+        ? [0, 255, 255, 100]
+        : [0, 255, 255, 40],
+    getLineWidth: (feature) =>
+      readCountryCode(feature) === hoveredCountryCode ? 6 : 3,
+    lineWidthMinPixels: 2,
+    lineWidthMaxPixels: 8,
+    updateTriggers: {
+      getLineColor: [hoveredCountryCode],
+      getLineWidth: [hoveredCountryCode]
+    }
+  });
+
+  const mainLayer = new GeoJsonLayer({
     id: "countries-layer",
     data,
     pickable: true,
     stroked: true,
     filled: true,
-    getFillColor: [10, 10, 10, 255] satisfies RgbaColor,
+    getFillColor: [12, 20, 35, 240] satisfies RgbaColor,
     getLineColor: (feature): RgbaColor =>
-      readCountryCode(feature) === hoveredCountryCode ? [255, 255, 255, 255] : [0, 255, 255, 220],
-    getLineWidth: (feature) => (readCountryCode(feature) === hoveredCountryCode ? 3 : 1.2),
+      readCountryCode(feature) === hoveredCountryCode
+        ? [150, 255, 255, 255]
+        : [0, 255, 255, 180],
+    getLineWidth: (feature) =>
+      readCountryCode(feature) === hoveredCountryCode ? 2 : 0.8,
     lineWidthMinPixels: 1,
     onHover: ({ object }) => onHoverCountry(readCountryCode(object)),
     onClick: ({ object }) => onSelectCountry(readCountryCode(object)),
@@ -55,4 +78,6 @@ export function createCountriesLayer({
       getLineWidth: [hoveredCountryCode]
     }
   });
+
+  return [glowLayer, mainLayer];
 }

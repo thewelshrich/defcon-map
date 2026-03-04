@@ -2,11 +2,14 @@ import { act, render, screen } from "@testing-library/react";
 import type { ReactNode } from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
+let deckGlProps: Record<string, unknown> | null = null;
+
 vi.mock("@deck.gl/react", () => ({
   __esModule: true,
-  default: ({ children }: { children?: ReactNode }) => (
-    <div data-testid="deck-gl">{children}</div>
-  )
+  default: ({ children, ...props }: { children?: ReactNode }) => {
+    deckGlProps = props;
+    return <div data-testid="deck-gl">{children}</div>;
+  }
 }));
 
 import { MapView } from "./MapView";
@@ -17,6 +20,7 @@ describe("MapView", () => {
     act(() => {
       useAppStore.setState({ hoveredCountryCode: null });
     });
+    deckGlProps = null;
   });
 
   it("mounts the map shell without crashing", () => {
@@ -33,5 +37,15 @@ describe("MapView", () => {
     render(<MapView events={[]} />);
 
     expect(screen.getByText("United States")).toBeInTheDocument();
+  });
+
+  it("disables deck.gl longitude normalization for the controlled viewport", () => {
+    render(<MapView events={[]} />);
+
+    expect(deckGlProps).toMatchObject({
+      viewState: expect.objectContaining({
+        normalize: false
+      })
+    });
   });
 });

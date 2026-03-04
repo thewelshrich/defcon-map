@@ -3,35 +3,44 @@
   overflow: hidden;
 }
 
+/* Scanlines */
 .crt-frame::before {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.18) 50%),
-    linear-gradient(90deg, rgba(0, 255, 255, 0.02), rgba(0, 0, 0, 0.02));
-  background-size:
-    100% 3px,
-    5px 100%;
-  opacity: 0.4;
+  z-index: 100;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  opacity: 0.5;
 }
 
+/* Vignette + flicker */
 .crt-frame::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: rgba(255, 255, 255, 0.02);
-  animation: crt-flicker 0.24s infinite alternate;
+  z-index: 101;
+  background: radial-gradient(
+    ellipse 75% 70% at 50% 50%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.35) 80%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  animation: crt-flicker 0.15s infinite alternate;
 }
 
 @keyframes crt-flicker {
   from {
-    opacity: 0.02;
+    opacity: 0.92;
   }
-
   to {
-    opacity: 0.05;
+    opacity: 1;
   }
 }

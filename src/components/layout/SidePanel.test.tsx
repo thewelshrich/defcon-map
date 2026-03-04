@@ -26,7 +26,7 @@ describe("SidePanel", () => {
 
     render(<SidePanel />);
 
-    expect(screen.getByText("Hover target: United States")).toBeInTheDocument();
-    expect(screen.getByText("Selected: United States")).toBeInTheDocument();
+    expect(screen.getByText("United States")).toBeInTheDocument();
+    expect(screen.getByText("LOCKED")).toBeInTheDocument();
   });
 });

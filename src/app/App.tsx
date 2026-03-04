@@ -5,11 +5,20 @@ import type { ConflictEvent } from "../domain/events";
 import { getEventsQueryOptions } from "../data/queries/events";
 import { getSummaryQueryOptions } from "../data/queries/summary";
 
-function buildTickerItems(events: ConflictEvent[]) {
-  return events.slice(0, 4).map((event) => {
-    const fatalities = event.fatalities ?? 0;
+export type TickerItem = {
+  id: string;
+  category: ConflictEvent["category"];
+  text: string;
+};
 
-    return `${event.category.toUpperCase()} - ${event.countryName} (${fatalities} reported fatalities)`;
+function buildTickerItems(events: ConflictEvent[]): TickerItem[] {
+  return events.slice(0, 8).map((event) => {
+    const fatalities = event.fatalities ?? 0;
+    return {
+      id: event.id,
+      category: event.category,
+      text: `${event.category.toUpperCase()} \u2014 ${event.countryName} (${fatalities} reported fatalities)`
+    };
   });
 }
 
