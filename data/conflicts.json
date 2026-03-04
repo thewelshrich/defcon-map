@@ -1,0 +1,27 @@
+{
+  "lastUpdated": "2026-03-04T12:00:00Z",
+  "source": "GDELT BigQuery",
+  "query": "QuadClass=4, Actor1CountryCode!=Actor2CountryCode, last 30 days",
+  "events": [
+    {"GLOBALEVENTID": "1292312058", "SQLDATE": "20260304", "attacker_country": "USA", "target_country": "ISR", "EventCode": "186", "GoldsteinScale": -10.0, "NumMentions": 6, "attacker_lat": 35.75, "attacker_lng": 51.5148, "event_lat": 35.75, "event_lng": 51.5148},
+    {"GLOBALEVENTID": "1292311911", "SQLDATE": "20260304", "attacker_country": "RUS", "target_country": "USA", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 10, "attacker_lat": 55.7522, "attacker_lng": 37.6156, "event_lat": 55.7522, "event_lng": 37.6156},
+    {"GLOBALEVENTID": "1292311646", "SQLDATE": "20260304", "attacker_country": "ISR", "target_country": "IRN", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 8, "attacker_lat": 37.768, "attacker_lng": -78.2057, "event_lat": 37.768, "event_lng": -78.2057},
+    {"GLOBALEVENTID": "1292308909", "SQLDATE": "20260304", "attacker_country": "IRN", "target_country": "CYP", "EventCode": "195", "GoldsteinScale": -10.0, "NumMentions": 7, "attacker_lat": 35.75, "attacker_lng": 51.5148, "event_lat": 35.75, "event_lng": 51.5148},
+    {"GLOBALEVENTID": "1292308971", "SQLDATE": "20260304", "attacker_country": "IRN", "target_country": "QAT", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 10, "attacker_lat": 32.0, "attacker_lng": 53.0, "event_lat": 32.0, "event_lng": 53.0},
+    {"GLOBALEVENTID": "1292309066", "SQLDATE": "20260304", "attacker_country": "ISR", "target_country": "IRN", "EventCode": "180", "GoldsteinScale": -9.0, "NumMentions": 8, "attacker_lat": 32.0667, "attacker_lng": 34.7667, "event_lat": 32.0, "event_lng": 53.0},
+    {"GLOBALEVENTID": "1292309845", "SQLDATE": "20260304", "attacker_country": "USA", "target_country": "IRN", "EventCode": "180", "GoldsteinScale": -9.0, "NumMentions": 10, "attacker_lat": 38.8951, "attacker_lng": -77.0364, "event_lat": 32.0, "event_lng": 53.0},
+    {"GLOBALEVENTID": "1292309023", "SQLDATE": "20260304", "attacker_country": "IRN", "target_country": "LKA", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 6, "attacker_lat": 31.5, "attacker_lng": 34.75, "event_lat": 31.5, "event_lng": 34.75},
+    {"GLOBALEVENTID": "1292309107", "SQLDATE": "20260304", "attacker_country": "ISR", "target_country": "IRN", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 11, "attacker_lat": 33.0637, "attacker_lng": 35.2201, "event_lat": 35.75, "event_lng": 51.5148},
+    {"GLOBALEVENTID": "1292309069", "SQLDATE": "20260304", "attacker_country": "ISR", "target_country": "IRN", "EventCode": "180", "GoldsteinScale": -9.0, "NumMentions": 8, "attacker_lat": 31.5, "attacker_lng": 34.75, "event_lat": 38.8951, "event_lng": -77.0364},
+    {"GLOBALEVENTID": "1292309767", "SQLDATE": "20260304", "attacker_country": "USA", "target_country": "IRN", "EventCode": "180", "GoldsteinScale": -9.0, "NumMentions": 8, "attacker_lat": 38.8951, "attacker_lng": -77.0364, "event_lat": 38.8951, "event_lng": -77.0364},
+    {"GLOBALEVENTID": "1292311846", "SQLDATE": "20260304", "attacker_country": "MYS", "target_country": "USA", "EventCode": "182", "GoldsteinScale": -9.5, "NumMentions": 6, "attacker_lat": 4.3, "attacker_lng": 101.15, "event_lat": 39.828175, "event_lng": -98.5795},
+    {"GLOBALEVENTID": "1292311392", "SQLDATE": "20260304", "attacker_country": "GBR", "target_country": "IRN", "EventCode": "180", "GoldsteinScale": -9.0, "NumMentions": 8, "attacker_lat": 54.0, "attacker_lng": -4.0, "event_lat": 31.6863, "event_lng": 50.7899},
+    {"GLOBALEVENTID": "1292311890", "SQLDATE": "20260304", "attacker_country": "QAT", "target_country": "IRN", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 6, "attacker_lat": 32.0, "attacker_lng": 53.0, "event_lat": 32.0, "event_lng": 53.0},
+    {"GLOBALEVENTID": "1292311557", "SQLDATE": "20260304", "attacker_country": "IRN", "target_country": "CHN", "EventCode": "170", "GoldsteinScale": -7.0, "NumMentions": 8, "attacker_lat": 35.75, "attacker_lng": 51.5148, "event_lat": 35.75, "event_lng": 51.5148},
+    {"GLOBALEVENTID": "1292309846", "SQLDATE": "20260304", "attacker_country": "USA", "target_country": "IRN", "EventCode": "195", "GoldsteinScale": -10.0, "NumMentions": 10, "attacker_lat": 32.0, "attacker_lng": 53.0, "event_lat": 32.0, "event_lng": 53.0},
+    {"GLOBALEVENTID": "1292308920", "SQLDATE": "20260304", "attacker_country": "IRN", "target_country": "EUR", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 20, "attacker_lat": 32.0, "attacker_lng": 53.0, "event_lat": 32.0, "event_lng": 53.0},
+    {"GLOBALEVENTID": "1292311647", "SQLDATE": "20260304", "attacker_country": "ISR", "target_country": "LBN", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 10, "attacker_lat": 31.7667, "attacker_lng": 35.2333, "event_lat": 35.75, "event_lng": 51.5148},
+    {"GLOBALEVENTID": "1292311394", "SQLDATE": "20260304", "attacker_country": "GBR", "target_country": "IRN", "EventCode": "190", "GoldsteinScale": -10.0, "NumMentions": 6, "attacker_lat": 54.0, "attacker_lng": -4.0, "event_lat": 31.6863, "event_lng": 50.7899},
+    {"GLOBALEVENTID": "1292312059", "SQLDATE": "20260304", "attacker_country": "USA", "target_country": "ISR", "EventCode": "194", "GoldsteinScale": -10.0, "NumMentions": 6, "attacker_lat": 32.0, "attacker_lng": 53.0, "event_lat": 32.0, "event_lng": 53.0}
+  ]
+}
