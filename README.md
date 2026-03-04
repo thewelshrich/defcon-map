@@ -96,7 +96,9 @@ Based on ACLED's Conflict Index methodology:
 
 ## Repository Status
 
-The repository currently contains an early plain JavaScript prototype. It is useful as a proof of concept for the visual direction, but it is not the long-term architecture.
+The repository now contains an active React 19 + TypeScript implementation alongside the original plain JavaScript prototype.
+
+The React app is the primary implementation path. The legacy `js/` prototype is still useful as a visual reference, but it is no longer the architectural source of truth.
 
 The intended production direction is documented in:
 
@@ -115,6 +117,14 @@ defcon-map/
 │   ├── technical-architecture.md
 │   ├── features.md
 │   └── ethics.md
+├── src/
+│   ├── app/
+│   ├── components/
+│   ├── data/
+│   ├── domain/
+│   ├── map/
+│   ├── store/
+│   └── styles/
 ├── css/
 ├── js/
 ├── index.html
@@ -123,19 +133,24 @@ defcon-map/
 
 ---
 
-## Current Prototype
+## Current Implementation
 
-The current codebase includes a D3-based browser prototype. It is best treated as a visual experiment, not the final implementation model.
+The current codebase includes:
+
+- a React + deck.gl application under `src/`
+- a D3-based browser prototype under `js/`
+
+The React app is the current production-track implementation. The D3 version remains a visual experiment and reference surface.
 
 ### Quick Start
 
 ```bash
 npm run dev
 
-# Open http://localhost:8080
+# Open the Vite dev URL shown in the terminal (typically http://localhost:5173)
 ```
 
-### Prototype Capabilities
+### Legacy Prototype Capabilities
 
 ```javascript
 DEFCONMap.init();
@@ -144,7 +159,7 @@ DEFCONMap.clearAllMarkers();
 DEFCONMap.zoomTo(40.7128, -74.0060, 4);
 ```
 
-### Demo Mode
+### Legacy Prototype Demo Mode
 
 Add `?demo` to the URL to render sample markers:
 
@@ -152,7 +167,7 @@ Add `?demo` to the URL to render sample markers:
 http://localhost:8080?demo
 ```
 
-### Prototype Modules
+### Legacy Prototype Modules
 
 ```javascript
 import { 
@@ -178,12 +193,11 @@ on('marker:click', (e) => console.log('Marker:', e.detail.marker));
 
 ## Next Steps
 
-1. Replace the prototype app shell with React + TypeScript + Vite.
-2. Rebuild the map surface with `deck.gl` using custom country geometry.
-3. Move conflict normalization and aggregation into Cloudflare Workers.
-4. Implement typed domain models for events, filters, and DEFCON scoring.
-5. Rebuild ticker, panels, and playback controls as React components.
-6. Reapply the CRT visual system on top of the new architecture.
+1. Expand the React app from shell components into full country and event detail views.
+2. Move conflict normalization and aggregation into Cloudflare Workers.
+3. Deepen the data model for filters, playback, and richer country summaries.
+4. Add timeline controls, filters, and the remaining interaction surfaces.
+5. Reconcile the remaining legacy prototype behavior or remove it once the React app fully supersedes it.
 
 ---
 

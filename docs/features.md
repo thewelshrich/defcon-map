@@ -9,7 +9,7 @@ Single number (1-5) representing global threat level.
 **Calculation (ACLED-based):**
 
 ```
-DEFCON Score = 
+DEFCON Index = 
   (Deadliness × 0.25) + 
   (Danger × 0.25) + 
   (Diffusion × 0.25) + 
@@ -171,15 +171,15 @@ Scrolling feed at bottom:
 
 ## MVP Scope
 
-**Launch with:**
+**Target launch scope:**
 
-1. ✅ DEFCON indicator
-2. ✅ Interactive map
-3. ✅ Event markers (last 7 days)
-4. ✅ Country hover stats
-5. ✅ News ticker
-6. ✅ CRT aesthetic
-7. ✅ Ambient audio
+1. DEFCON indicator
+2. Interactive map
+3. Event markers (last 7 days)
+4. Country hover stats
+5. News ticker
+6. CRT aesthetic
+7. Ambient audio
 
 **Post-launch:**
 

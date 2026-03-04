@@ -18,6 +18,7 @@ describe("DefconIndicator", () => {
 
     expect(screen.getByText("DEFCON 2")).toBeInTheDocument();
     expect(screen.getByText(/DE-ESCALATING/)).toBeInTheDocument();
+    expect(screen.getByText("INDEX 68")).toBeInTheDocument();
     expect(screen.getByText("2026-03-04 11:05 UTC")).toBeInTheDocument();
   });
 });

@@ -118,7 +118,7 @@ Use aggregated datasets (GDELT) instead of direct social media APIs.
                      │
               ┌──────▼──────┐
               │   Frontend  │
-              │  (D3.js)    │
+              │(React + deck.gl)│
               └─────────────┘
 ```
 

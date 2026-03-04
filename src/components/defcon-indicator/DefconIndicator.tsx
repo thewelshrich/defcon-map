@@ -30,7 +30,7 @@ export function DefconIndicator({ summary }: DefconIndicatorProps) {
       <p className="defcon-meta defcon-trend">
         {trend.symbol} {trend.label}
       </p>
-      <p className="defcon-meta">SCORE {summary.score}</p>
+      <p className="defcon-meta">INDEX {summary.score}</p>
       <p className="defcon-meta">{formatDefconTimestamp(summary.updatedAt)}</p>
     </section>
   );
